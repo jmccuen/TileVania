@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
-
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -41,9 +41,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        vcam = (Cinemachine.CinemachineVirtualCamera)Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
         playerRigidBody.velocity += (Vector2)(transform.up * (grav.gravity * grav.gravityScale)) * Time.deltaTime;
         if (!isAlive)
         {
+
             return;
         }
       
@@ -70,15 +72,30 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("isClimbing", isClimbing);
         
         FlipSprite();
+        Exit();
        
         Debug.DrawLine(transform.position, (Vector2) transform.position + playerRigidBody.velocity * 10);
         return;
+    }
+
+    void Exit()
+    {
+        if (playerCollider.IsTouchingLayers(LayerMask.GetMask("Portals")))
+        {
+            int nextScene = SceneManager.GetActiveScene().buildIndex + 1;
+            if (nextScene < SceneManager.sceneCountInBuildSettings)
+            {
+                SceneManager.LoadScene(nextScene);
+            }
+        }
     }
 
     void Die()
     {
         if (playerCollider.IsTouchingLayers(LayerMask.GetMask("Enemies"))) {
             isAlive = false;
+            animator.SetBool("isAlive", isAlive);
+            FindObjectOfType<GameSession>().ProcessPlayerDeath();
         }
     }
 
@@ -119,8 +136,10 @@ public class PlayerMovement : MonoBehaviour
                 grav.gravityState = CustomGravity.gravityStates.DOWN;
             }
             
-            vcam.transform.eulerAngles = Vector3.Lerp(vcam.transform.eulerAngles, new Vector3(vcam.transform.rotation.x, vcam.transform.rotation.y, 90 * ((int)grav.gravityState)), 2);
-            transform.eulerAngles = new Vector3(transform.rotation.x, transform.rotation.y, 90*((int)grav.gravityState));
+            Vector3 newAngles = new Vector3(transform.rotation.x, transform.rotation.y, 90 * ((int)grav.gravityState));
+            vcam.transform.eulerAngles = Vector3.Lerp(vcam.transform.eulerAngles, newAngles, 2);
+            transform.eulerAngles = newAngles;
+            FindObjectOfType<GameSession>().ProcessGravityChange(new Vector3(transform.rotation.x, transform.rotation.y, -90 * ((int)grav.gravityState)));
         }
         return;
     }

@@ -158,7 +158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   runSpeed: 5
-  jumpSpeed: 25
+  jumpSpeed: 10
 --- !u!114 &909686859461906050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -227,6 +227,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 471aca877ec75af4c80e1ab57b8da485, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gravityScale: 1
+  gravityScale: 1.5
   gravityState: 0
   gravity: -9.8

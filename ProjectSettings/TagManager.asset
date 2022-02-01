@@ -15,7 +15,7 @@ TagManager:
   - Background
   - Player
   - Enemies
-  - 
+  - Portals
   - 
   - 
   - 
@@ -55,4 +55,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 3223505125
+    locked: 0
+  - name: Portals
+    uniqueID: 2723585367
     locked: 0
