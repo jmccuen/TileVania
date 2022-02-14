@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -15,7 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody2D playerRigidBody;
     private Collider2D playerCollider;
     private Collider2D feetCollider;
-   
+
     private Cinemachine.CinemachineVirtualCamera vcam;
     private CustomGravity grav;
 
@@ -29,7 +30,7 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+
         playerRigidBody = GetComponent<Rigidbody2D>();
         playerCollider = GetComponent<CapsuleCollider2D>();
         feetCollider = GetComponent<BoxCollider2D>();
@@ -41,6 +42,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        
         vcam = (Cinemachine.CinemachineVirtualCamera)Camera.main.GetComponent<Cinemachine.CinemachineBrain>().ActiveVirtualCamera;
         playerRigidBody.velocity += (Vector2)(transform.up * (grav.gravity * grav.gravityScale)) * Time.deltaTime;
         if (!isAlive)
