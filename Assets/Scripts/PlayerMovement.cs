@@ -23,10 +23,16 @@ public class PlayerMovement : MonoBehaviour
 
     private Animator animator;
     private bool isRunning = false;
-    private bool isClimbing = false;
+    private bool isAttacking = false;
     private bool isJumping = false;
     private bool isAlive = true;
+    private bool onGround = true;
     private bool doubleJump = false;
+    private bool gravityChanging = false;
+    public Transform attackPos;
+    public LayerMask enemyMask;
+    public float attackRange;
+    public int damage;
     // Start is called before the first frame update
     void Start()
     {
@@ -50,29 +56,29 @@ public class PlayerMovement : MonoBehaviour
 
             return;
         }
-      
+        //onGround = feetCollider.IsTouchingLayers(LayerMask.GetMask("Ground"));
+        //animator.SetBool("onGround", onGround);
+
+
+
         if (isJumping)
         {
             playerRigidBody.velocity += (Vector2)(transform.up * jumpSpeed);
+            animator.SetBool("isJumping", isJumping);
             isJumping = false;
+        } else
+        {
+            animator.SetBool("isJumping", isJumping);
         }
 
         playerRigidBody.velocity = (Vector2)(moveInput.x * (transform.right * runSpeed)) + grav.GetGravityVector();
 
-        if (playerCollider.IsTouchingLayers(LayerMask.GetMask("Climbable")))
-        {
-            float currentVelocity = (moveInput.y * (runSpeed / 2)) * (grav.AxisInverted(grav.GetMoveAxis() ? 0 : 1) ? -1f : 1f);
-            playerRigidBody.velocity = grav.GetMoveAxis() ? new Vector2(playerRigidBody.velocity.x, currentVelocity) : new Vector2(currentVelocity, playerRigidBody.velocity.y);
-            isClimbing = true;
-        }
-        else
-        {
-            isClimbing = false;
-        }
-        Die();
+
+        StartCoroutine(Die());
+        animator.SetBool("isAttacking", isAttacking);
         animator.SetBool("isRunning", isRunning);
-        animator.SetBool("isClimbing", isClimbing);
         
+
         FlipSprite();
         Exit();
        
@@ -92,13 +98,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    void Die()
+    IEnumerator Die()
     {
         if (playerCollider.IsTouchingLayers(LayerMask.GetMask("Enemies"))) {
             isAlive = false;
             animator.SetBool("isAlive", isAlive);
+            yield return new WaitForSeconds(1);
             FindObjectOfType<GameSession>().ProcessPlayerDeath();
         }
+        
     }
 
     void OnMove(InputValue value)
@@ -127,11 +135,46 @@ public class PlayerMovement : MonoBehaviour
       
     }
 
+    void OnAttack(InputValue value)
+    {
+        if (value.isPressed && !isAttacking)
+        {
+            
+            StartCoroutine(Attack(0.5f));
+            
+        }
+
+    }
+
+    IEnumerator Attack(float duration)
+    {
+        float time = 0;
+        isAttacking = true;
+        while (time < duration)
+        {
+            Collider2D[] enemies = Physics2D.OverlapCircleAll(attackPos.position, attackRange, enemyMask);
+            foreach (Collider2D enemy in enemies)
+            {
+                if (!enemy.isTrigger) enemy.GetComponent<Enemy>().TakeDamage(damage);
+            }
+            time += Time.deltaTime;
+            yield return null;
+        }
+        isAttacking = false;
+        
+
+    }
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(attackPos.position, attackRange);
+    }
+
     void OnSwitch(InputValue value)
     {
-        if (value.isPressed)
+        if (value.isPressed && !gravityChanging)
         {
-
+            gravityChanging = true;
             grav.gravityState++;
             if ((int)grav.gravityState >= 4)
             {
@@ -139,7 +182,8 @@ public class PlayerMovement : MonoBehaviour
             }
             
             Vector3 newAngles = new Vector3(transform.rotation.x, transform.rotation.y, 90 * ((int)grav.gravityState));
-            vcam.transform.eulerAngles = Vector3.Lerp(vcam.transform.eulerAngles, newAngles, 2);
+            StartCoroutine(LerpFunction(vcam.transform.eulerAngles, newAngles, 0.25f));
+            //vcam.transform.eulerAngles = Vector3.Lerp(vcam.transform.eulerAngles, newAngles, 0.5f);
             transform.eulerAngles = newAngles;
             FindObjectOfType<GameSession>().ProcessGravityChange(new Vector3(transform.rotation.x, transform.rotation.y, -90 * ((int)grav.gravityState)));
         }
@@ -156,6 +200,20 @@ public class PlayerMovement : MonoBehaviour
        return;
     }
 
+    IEnumerator LerpFunction(Vector3 start, Vector3 end, float duration)
+    {
+        float time = 0;
+
+        while (time < duration)
+        {
+            vcam.transform.eulerAngles = Vector3.Lerp(start, end, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        vcam.transform.eulerAngles = Vector3.Lerp(start, end, 1);
+        gravityChanging = false;
+
+    }
 
 
 }
