@@ -15,8 +15,10 @@ public class Xaxxroz : MonoBehaviour
     {
         
     }
-    void OnCollisionEnter(Collision collision){
+    void OnTriggerEnter2D(Collider2D collision)
+    {
            Debug.Log("Xaxxroz Class:Player or something entered the box");
           // _owner.ChangeState(Attack.Instance);
-        }
+    }
+
 }
