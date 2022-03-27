@@ -2,19 +2,42 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace BossAI;
+using BossAI;
 
-public class SpecialAttack : MonoBehaviour
+public class SpecialAttack : State<AI>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    private static SpecialAttack _instance;
+    private SpecialAttack(){
+        if(_instance != null) { return; }
+        _instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public static SpecialAttack Instance{
+        get{
+            if(_instance==null){
+                new SpecialAttack();
+            }
+            
+            return _instance;
+        }
+    }
+    public override void EnterState(AI _owner)
     {
-        
+        Debug.Log("SpecialAttack State [Enter]");
+    }
+
+    public override void ExitState(AI _owner)
+    {
+        Debug.Log("SpecialAttack State [Exit]");
+    }
+
+    public override string ToString()
+    {
+        return base.ToString();
+    }
+
+    public override void UpdateState(AI _owner)
+    {
+        Debug.Log("SpecialAttack State [Update]");
     }
 }

@@ -4,10 +4,8 @@ using UnityEngine;
 
 namespace BossAI
 {
-public class StateMachine
+public class StateMachine<T>
 {
-   public class StateMachine<T>
-   {
        public State<T> currentState { get; private set;} 
        public T owner;
        public StateMachine(T _o){
@@ -28,7 +26,11 @@ public class StateMachine
                 currentState.UpdateState(owner);
             }
        }
-   } 
+       //Respond to OnTriggerEnter2D  MonoBehaviour class
+        void OnCollisionEnter(Collision collision){
+           Debug.Log("SM:Player or something entered the box");
+          // _owner.ChangeState(Attack.Instance);
+        }
 }
     public abstract class State<T>{
        public abstract void EnterState(T _owner);

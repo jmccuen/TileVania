@@ -1,20 +1,45 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-namespace BossAI;
+using BossAI;
 
-public class Taunt : MonoBehaviour
+public class Taunt : State<AI>
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    private static Taunt _instance;
+    private Taunt(){
+        if(_instance != null) { return; }
+        _instance = this;
     }
 
-    // Update is called once per frame
-    void Update()
+    public static Taunt Instance{
+        get{
+            if(_instance==null){
+                new Taunt();
+                }
+            
+            return _instance;
+            }
+    }
+    public override void EnterState(AI _owner)
+    {
+        Debug.Log("Taunt State [Enter]");
+    }
+
+    public override void ExitState(AI _owner)
     {
         
+        Debug.Log("Taunt State [Exit]");
+    }
+
+    public override string ToString()
+    {
+        return base.ToString();
+    }
+
+    public override void UpdateState(AI _owner)
+    {
+        Debug.Log("Taunt State [Update]");
     }
 }

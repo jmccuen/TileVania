@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Enemy
   layers:
   - Default
   - TransparentFX
@@ -16,7 +17,7 @@ TagManager:
   - Player
   - Enemies
   - Portals
-  - 
+  - Bosses
   - 
   - 
   - 
@@ -58,4 +59,7 @@ TagManager:
     locked: 0
   - name: Portals
     uniqueID: 2723585367
+    locked: 0
+  - name: Bosses
+    uniqueID: 1824778773
     locked: 0

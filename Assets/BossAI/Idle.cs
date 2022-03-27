@@ -24,12 +24,12 @@ public class Idle : State<AI>
     }
     public override void EnterState(AI _owner)
     {
-        Debug.log("Idle State [Enter]");
+        Debug.Log("Idle State [Enter]");
     }
 
     public override void ExitState(AI _owner)
     {
-        Debug.log("Idle State [Exit]");
+        Debug.Log("Idle State [Exit]");
     }
 
     public override string ToString()
@@ -39,6 +39,11 @@ public class Idle : State<AI>
 
     public override void UpdateState(AI _owner)
     {
-        Debug.log("Idle State [Update]");
+        //Debug.Log("Idle State [Update]");
     }
+
+     void OnCollisionEnter(Collision collision){
+           Debug.Log("IDLE:Player or something entered the box");
+          // _owner.ChangeState(Attack.Instance);
+        }
 }
