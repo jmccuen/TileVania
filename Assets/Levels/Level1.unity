@@ -134097,9 +134097,17 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9099512377258049053, guid: d50eb0180fbab6509b4b67e401ccdd68, type: 3}
+      propertyPath: m_CollisionDetection
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -1816397930177360769, guid: d50eb0180fbab6509b4b67e401ccdd68, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -1816397930177360769, guid: d50eb0180fbab6509b4b67e401ccdd68, type: 3}
+      propertyPath: m_ColliderMask.m_Bits
+      value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 3279404349247093189, guid: d50eb0180fbab6509b4b67e401ccdd68, type: 3}
       propertyPath: m_RootOrder
