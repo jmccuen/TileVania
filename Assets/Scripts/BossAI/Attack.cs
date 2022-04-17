@@ -58,8 +58,9 @@ public class Attack : State<AI>
          //move towards the player
          _owner.transform.position += _owner.transform.forward * _owner.speed * Time.deltaTime;
          // Debug.Log("Attack State [Update]");*/
-        _owner.transform.LookAt(_owner.target.position);
-        _owner.transform.Rotate(new Vector3(0, -90, 0), Space.Self);//correcting the original rotation
-        _owner.transform.position = Vector2.MoveTowards(_owner.transform.position, _owner.target.transform.position, _owner.speed * Time.deltaTime);
+        //_owner.transform.LookAt(_owner.target.position);
+        //_owner.transform.Rotate(new Vector3(0, -90, 0), Space.Self);//correcting the original rotation
+        Debug.DrawLine(_owner.transform.position, _owner.target.transform.position);
+        _owner.transform.position = Vector2.MoveTowards(_owner.transform.position, _owner.target.transform.position, 0.05f);
     }
 }
