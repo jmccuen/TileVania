@@ -6,6 +6,9 @@ public class AI : MonoBehaviour
 {
     public float difficultyFactor;
     public bool hasSpecial;
+    public int speed = 3;
+    public Transform target;
+
  
     public StateMachine<AI> stateMachine { get; set; }
  
@@ -14,6 +17,7 @@ public class AI : MonoBehaviour
     {
         stateMachine = new StateMachine<AI>(this);
         stateMachine.ChangeState(Idle.Instance);
+        
     }
 
     // Update is called once per frame

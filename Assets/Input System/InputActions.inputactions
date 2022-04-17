@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Switch",
+                    "name": "SwitchL",
                     "type": "Button",
                     "id": "51a61a85-5316-466d-b497-0d32552a4112",
                     "expectedControlType": "Button",
@@ -54,6 +54,15 @@
                     "name": "Attack",
                     "type": "Button",
                     "id": "fda7e881-41e3-4a89-b7cf-b1b47fde155a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "SwitchR",
+                    "type": "Button",
+                    "id": "b9cb6d52-7fbf-47eb-b489-ccb0af5ccd4b",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -310,7 +319,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Switch",
+                    "action": "SwitchL",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -322,6 +331,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "15d91387-58f1-4e44-9e3b-7c4fe7339879",
+                    "path": "<Keyboard>/1",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "SwitchR",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

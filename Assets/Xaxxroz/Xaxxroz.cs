@@ -5,11 +5,14 @@ using UnityEngine;
 public class Xaxxroz : MonoBehaviour
 {
     private AI ai;
+
+    private Animator animator;
     // Start is called before the first frame update
     void Start()
     {
           Debug.Log("Xaxxroz Class:Loaded, don't you feel special?");
           ai = GetComponent<AI>();
+          animator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -19,8 +22,22 @@ public class Xaxxroz : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
-           Debug.Log("Xaxxroz Class:Player or something entered the box");
-           ai.stateMachine.ChangeState(Attack.Instance);
+        if (collision is BoxCollider2D)
+        {
+            // Debug.Log("Xaxxroz Class:Player or something entered the box");
+            ai.stateMachine.ChangeState(Attack.Instance);
+            //animator.SetBool("isSpin", true);
+            animator.Play("RedAttack");
+            //StartCoroutine(RedAttack());
+        }
     }
+
+    IEnumerator RedAttack()
+    {
+        yield return new WaitForSeconds(5);
+        ai.stateMachine.ChangeState(Idle.Instance);
+    }
+
+
 
 }

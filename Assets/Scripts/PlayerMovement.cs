@@ -170,7 +170,31 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.DrawWireSphere(attackPos.position, attackRange);
     }
 
-    void OnSwitch(InputValue value)
+    void OnSwitchL(InputValue value)
+    {
+        if (value.isPressed && !gravityChanging)
+        {
+            gravityChanging = true;
+            grav.gravityState--;
+            if ((int)grav.gravityState < 0)
+            {
+                grav.gravityState = CustomGravity.gravityStates.RIGHT;
+            }
+            int newZ = 90 * (int)grav.gravityState;
+            if (newZ > 180)
+            {
+                newZ = newZ - 360;
+            }
+            Vector3 newAngles = new Vector3(transform.rotation.x, transform.rotation.y, newZ);
+            StartCoroutine(LerpFunction(vcam.transform.eulerAngles, newAngles, 0.25f));
+            //vcam.transform.eulerAngles = Vector3.Lerp(vcam.transform.eulerAngles, newAngles, 0.5f);
+            transform.eulerAngles = newAngles;
+            FindObjectOfType<GameSession>().ProcessGravityChange(new Vector3(transform.rotation.x, transform.rotation.y, -90 * ((int)grav.gravityState)));
+        }
+        return;
+    }
+
+    void OnSwitchR(InputValue value)
     {
         if (value.isPressed && !gravityChanging)
         {
@@ -180,8 +204,12 @@ public class PlayerMovement : MonoBehaviour
             {
                 grav.gravityState = CustomGravity.gravityStates.DOWN;
             }
-            
-            Vector3 newAngles = new Vector3(transform.rotation.x, transform.rotation.y, 90 * ((int)grav.gravityState));
+            int newZ = 90 * (int)grav.gravityState;
+            if (newZ == 0)
+            {
+                newZ = 360;
+            }
+            Vector3 newAngles = new Vector3(transform.rotation.x, transform.rotation.y, newZ);
             StartCoroutine(LerpFunction(vcam.transform.eulerAngles, newAngles, 0.25f));
             //vcam.transform.eulerAngles = Vector3.Lerp(vcam.transform.eulerAngles, newAngles, 0.5f);
             transform.eulerAngles = newAngles;
