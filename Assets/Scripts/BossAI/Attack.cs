@@ -58,12 +58,13 @@ public class Attack : State<AI>
          //move towards the player
          _owner.transform.position += _owner.transform.forward * _owner.speed * Time.deltaTime;
          // Debug.Log("Attack State [Update]");*/
-        //_owner.transform.LookAt(_owner.target.position);
-        //_owner.transform.Rotate(new Vector3(0, -90, 0), Space.Self);//correcting the original rotation
+
+        _owner.transform.LookAt(new Vector2(_owner.target.position.x, _owner.transform.position.y));
+        _owner.transform.Rotate(new Vector3(0, -90, 0), Space.Self);//correcting the original rotation
         Rigidbody2D body = _owner.GetComponent<Rigidbody2D>();
         Debug.DrawLine(_owner.transform.position, _owner.target.transform.position);
         //body.velocity += Vector2.MoveTowards(_owner.transform.position, _owner.target.transform.position, Time.deltaTime * _owner.speed);
-        body.velocity = (_owner.target.position - _owner.transform.position).normalized * _owner.speed;
+        body.velocity = new Vector2((_owner.target.position - _owner.transform.position).normalized.x * _owner.speed,0);
 
     }
 }

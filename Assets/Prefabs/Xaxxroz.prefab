@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 7721205730306275111}
   - component: {fileID: -9099512377258049053}
   - component: {fileID: 1289509450}
+  - component: {fileID: 1289509451}
   m_Layer: 11
   m_Name: Xaxxroz
   m_TagString: Enemy
@@ -115,6 +116,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   difficultyFactor: 0
   hasSpecial: 0
+  speed: 3
+  target: {fileID: 0}
 --- !u!61 &7721205730306275111
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -128,7 +131,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 1
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0.15269661, y: -0.08907318}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -139,7 +142,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3, y: 3}
+  m_Size: {x: 10.940224, y: 10.303989}
   m_EdgeRadius: 0
 --- !u!50 &-9099512377258049053
 Rigidbody2D:
@@ -153,15 +156,15 @@ Rigidbody2D:
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
-  m_Mass: 1
+  m_Mass: 0.0001
   m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_AngularDrag: 0
   m_GravityScale: 0
   m_Material: {fileID: 6200000, guid: f6a76a3141d0a5a47af708230db78898, type: 2}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!95 &1289509450
 Animator:
   serializedVersion: 4
@@ -182,3 +185,43 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!60 &1289509451
+PolygonCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3279404349247093192}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 6200000, guid: f6a76a3141d0a5a47af708230db78898, type: 2}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 0.64, y: 0.64}
+    newSize: {x: 1, y: 1}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  m_Points:
+    m_Paths:
+    - - {x: 0.26, y: 0.06}
+      - {x: 0.22, y: 0.089999996}
+      - {x: 0.04, y: 0.32}
+      - {x: -0.049999997, y: 0.32}
+      - {x: -0.08, y: 0.31}
+      - {x: -0.29999998, y: 0.06}
+      - {x: -0.32, y: 0.04}
+      - {x: -0.32, y: -0.03}
+      - {x: -0.13, y: -0.17999999}
+      - {x: -0.07, y: -0.32}
+      - {x: 0.049999997, y: -0.32}
+      - {x: 0.14999999, y: -0.22999999}
+      - {x: 0.31, y: -0.049999997}
+      - {x: 0.32, y: -0.04}
+      - {x: 0.32, y: 0.02}
