@@ -8,8 +8,8 @@ public class AI : MonoBehaviour
     public bool hasSpecial;
     public int speed = 3;
     public Transform target;
+    
 
- 
     public StateMachine<AI> stateMachine { get; set; }
  
     // Start is called before the first frame update
@@ -17,7 +17,7 @@ public class AI : MonoBehaviour
     {
         stateMachine = new StateMachine<AI>(this);
         stateMachine.ChangeState(Idle.Instance);
-        
+       
     }
 
     // Update is called once per frame

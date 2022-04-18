@@ -60,7 +60,10 @@ public class Attack : State<AI>
          // Debug.Log("Attack State [Update]");*/
         //_owner.transform.LookAt(_owner.target.position);
         //_owner.transform.Rotate(new Vector3(0, -90, 0), Space.Self);//correcting the original rotation
+        Rigidbody2D body = _owner.GetComponent<Rigidbody2D>();
         Debug.DrawLine(_owner.transform.position, _owner.target.transform.position);
-        _owner.transform.position = Vector2.MoveTowards(_owner.transform.position, _owner.target.transform.position, 0.05f);
+        //body.velocity += Vector2.MoveTowards(_owner.transform.position, _owner.target.transform.position, Time.deltaTime * _owner.speed);
+        body.velocity = (_owner.target.position - _owner.transform.position).normalized * _owner.speed;
+
     }
 }
